@@ -1,290 +1,39 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>To Chom</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:
-    radial-gradient(circle at top,#a2876c,#705948);
-    overflow:auto;
-    padding:40px;
-}
-
-/* ====== POSTCARD ====== */
-
-#postcard{
-    width:760px;
-    height:480px;
-    background:
-    linear-gradient(rgba(255,255,255,.06),
-    rgba(255,255,255,.06)),
-    repeating-linear-gradient(
-        45deg,
-        #eadfcf,
-        #eadfcf 8px,
-        #e2d4c1 8px,
-        #e2d4c1 16px
-    );
-    border-radius:8px;
-    box-shadow:0 30px 70px rgba(0,0,0,.35);
-    position:relative;
-    cursor:pointer;
-    animation:sway 4s ease-in-out infinite;
-}
-
-@keyframes sway{
-    0%{transform:rotate(-2deg);}
-    50%{transform:rotate(2deg);}
-    100%{transform:rotate(-2deg);}
-}
-
-#postcard::before{
-    content:"POSTCARD";
-    position:absolute;
-    top:35px;
-    left:40px;
-    font-size:32px;
-    letter-spacing:8px;
-    color:#5f4c3d;
-    font-family:'Cormorant Garamond',serif;
-}
-
-#divider{
-    position:absolute;
-    left:50%;
-    top:70px;
-    width:2px;
-    height:330px;
-    background:#7d6755;
-}
-
-#address{
-    position:absolute;
-    right:80px;
-    top:140px;
-    width:250px;
-}
-
-.line{
-    height:2px;
-    background:#7d6755;
-    margin-bottom:55px;
-}
-
-#to{
-    position:absolute;
-    right:130px;
-    top:180px;
-    font-family:'Great Vibes',cursive;
-    font-size:72px;
-    color:#503f31;
-}
-
-/* ====== PAPER ====== */
-
 #paper{
     display:none;
-    width:920px;
+    width:900px;
     max-width:95%;
-    min-height:1000px;
+    min-height:950px;
     background:
-    repeating-linear-gradient(
+      repeating-linear-gradient(
         to bottom,
-        #ffffff 0,
-        #ffffff 41px,
-        rgba(140,120,100,.18) 42px
-    );
-    border-radius:8px;
+        #f7f2e9 0px,
+        #f7f2e9 42px,
+        rgba(120,100,80,.18) 43px
+      );
     box-shadow:0 30px 80px rgba(0,0,0,.35);
-    padding:100px 90px;
+    border-radius:8px;
+    padding:90px 90px 120px;
     position:relative;
     overflow:hidden;
 }
 
 /* viền cổ điển */
-
-.corner{
+#paper::before{
+    content:"❦";
     position:absolute;
-    font-size:28px;
-    color:#a28a73;
+    top:25px;
+    left:35px;
+    font-size:32px;
+    color:#8a735d;
     opacity:.45;
 }
 
-.tl{
-    top:20px;
-    left:30px;
-}
-
-.tr{
-    top:20px;
-    right:30px;
-    transform:rotate(90deg);
-}
-
-.bl{
-    bottom:20px;
-    left:30px;
-    transform:rotate(-90deg);
-}
-
-.br{
-    bottom:20px;
-    right:30px;
-    transform:rotate(180deg);
-}
-
-/* tulip nét vẽ */
-
-.tulip{
+#paper::after{
+    content:"❦";
     position:absolute;
-    top:40px;
-    right:70px;
-    width:80px;
-    height:140px;
-    opacity:.35;
+    bottom:25px;
+    right:35px;
+    font-size:32px;
+    color:#8a735d;
+    opacity:.45;
 }
-
-.tulip svg{
-    width:100%;
-    height:100%;
-}
-
-/* chữ */
-
-#text{
-    white-space:pre-line;
-    font-family:'Cormorant Garamond',serif;
-    font-style:italic;
-    font-size:30px;
-    line-height:42px;
-    color:#433428;
-    letter-spacing:.3px;
-}
-
-#gift{
-    display:none;
-    width:330px;
-    margin-top:70px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-.center{
-    text-align:center;
-}
-
-</style>
-</head>
-
-<body>
-
-<div id="postcard">
-
-    <div id="divider"></div>
-
-    <div id="address">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-    </div>
-
-    <div id="to">To Chom</div>
-
-</div>
-
-<div id="paper">
-
-    <div class="corner tl">❦</div>
-    <div class="corner tr">❦</div>
-    <div class="corner bl">❦</div>
-    <div class="corner br">❦</div>
-
-    <div class="tulip">
-        <svg viewBox="0 0 100 180">
-            <path d="M50 150 L50 60" stroke="#8b6b4f" stroke-width="2" fill="none"/>
-            <path d="M50 60 C40 45 30 30 35 15 C45 20 50 35 50 45" stroke="#8b6b4f" stroke-width="2" fill="none"/>
-            <path d="M50 60 C60 45 70 30 65 15 C55 20 50 35 50 45" stroke="#8b6b4f" stroke-width="2" fill="none"/>
-            <path d="M50 55 C48 30 52 15 50 5 C48 15 52 30 50 55" stroke="#8b6b4f" stroke-width="2" fill="none"/>
-        </svg>
-    </div>
-
-    <div id="text"></div>
-
-    <div class="center">
-        <img src="voucher.jpg" id="gift">
-    </div>
-
-</div>
-
-<script>
-
-const message = `Thân gửi: Hoàng thượng
-
-Hoàng thượng ơi,
-
-Nhận thấy Hoàng thượng làm việc chăm chỉ và bị em bào quá chừng,
-em xin kính cẩn nghiêng mình dâng lên Hoàng thượng món quà nhỏ của em.
-
-Mong Hoàng thượng nhận món quà này với một nụ cười thật tươi nhé! ☺️
-
-Và hãy nhớ chăm chỉ làm việc hơn...
-
-để còn dẫn em đi ăn nhé! 😜
-
-
-━━━━━━━━━━━━
-
-Credit:
-
-"Đổi một lần uống nước bằng một lần ăn vú nướng đấy nhé!
-
-Deal xịn đấy!"
-
-
-━━━━━━━━━━━━
-
-Ký tên,
-
-Cô gái tẻn nhất anh từng gặp 🐾`;
-
-document.getElementById("postcard").onclick = function(){
-
-    document.getElementById("postcard").style.display = "none";
-    document.getElementById("paper").style.display = "block";
-
-    let i = 0;
-    const txt = document.getElementById("text");
-
-    function typing(){
-        if(i < message.length){
-            txt.innerHTML += message.charAt(i);
-            i++;
-            setTimeout(typing,35);
-        }else{
-            document.getElementById("gift").style.display = "block";
-        }
-    }
-
-    typing();
-};
-
-</script>
-
-</body>
-</html>
