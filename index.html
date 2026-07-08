@@ -5,90 +5,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>To Chom</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     min-height:100vh;
-    background:#8c7158;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-family:'Cormorant Garamond', serif;
+    background:
+    radial-gradient(circle at top,#b79a7c,#7a6553);
+    font-family:'Cormorant Garamond',serif;
+    overflow:auto;
 }
 
-/* Phong thư */
+/* BƯU THIẾP */
 
-#envelope{
-    width:420px;
-    height:260px;
-    background:#b48a60;
+#postcard{
+    width:720px;
+    height:450px;
+    background:
+    linear-gradient(rgba(255,255,255,.08),
+    rgba(255,255,255,.08)),
+    repeating-linear-gradient(
+    45deg,
+    #e5d6bf,
+    #e5d6bf 4px,
+    #e0d0b8 4px,
+    #e0d0b8 8px);
     border-radius:8px;
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
     position:relative;
     cursor:pointer;
-    box-shadow:0 20px 40px rgba(0,0,0,.35);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#fff8f0;
-    font-size:42px;
-    letter-spacing:3px;
-    transition:0.5s;
+    animation:sway 4s ease-in-out infinite;
 }
 
-#envelope:hover{
-    transform:translateY(-5px);
+@keyframes sway{
+    0%{transform:rotate(-2deg);}
+    50%{transform:rotate(2deg);}
+    100%{transform:rotate(-2deg);}
 }
 
-#envelope:before{
+#postcard::before{
+    content:"POSTCARD";
+    position:absolute;
+    left:35px;
+    top:35px;
+    letter-spacing:8px;
+    font-size:35px;
+    color:#5f4c3d;
+}
+
+#postcard::after{
     content:"";
     position:absolute;
-    top:0;
-    left:0;
-    border-left:210px solid transparent;
-    border-right:210px solid transparent;
-    border-top:130px solid #c89a69;
+    right:85px;
+    top:140px;
+    width:230px;
+    height:2px;
+    background:#7a6653;
+    box-shadow:
+      0 55px #7a6653,
+      0 110px #7a6653,
+      0 165px #7a6653;
 }
 
-#envelope span{
-    position:relative;
-    z-index:2;
+#divider{
+    position:absolute;
+    left:50%;
+    top:70px;
+    width:2px;
+    height:300px;
+    background:#7a6653;
 }
 
-/* Giấy thư */
+#to{
+    position:absolute;
+    right:120px;
+    top:170px;
+    font-size:50px;
+    font-style:italic;
+    color:#4d3c2d;
+    font-family:'Dancing Script',cursive;
+}
+
+/* GIẤY THƯ */
 
 #paper{
     display:none;
-    width:850px;
-    max-width:90%;
-    min-height:650px;
+    width:900px;
+    max-width:95%;
+    min-height:900px;
     background:
-      repeating-linear-gradient(
-        white 0px,
-        white 39px,
-        #e8e1d7 40px
-      );
-    background-color:#faf7f2;
-    padding:70px;
-    box-sizing:border-box;
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,0) 45px,
+      rgba(120,100,80,.15) 46px
+    ),
+    linear-gradient(#f5efdf,#eee3ce);
+    padding:90px;
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
     border-radius:8px;
+    color:#4d3d30;
 }
 
 #text{
     white-space:pre-line;
     font-size:34px;
-    line-height:40px;
-    color:#4e4033;
-    font-family:'Cormorant Garamond', serif;
+    line-height:46px;
+    font-style:italic;
+    font-family:'Cormorant Garamond',serif;
 }
 
 #gift{
     display:none;
-    width:320px;
-    margin-top:50px;
+    width:330px;
+    margin-top:60px;
     border-radius:15px;
 }
 
@@ -96,64 +136,86 @@ body{
     text-align:center;
 }
 
+.tulip{
+    color:#8a6f5a;
+    font-size:38px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="envelope">
-    <span>To Chom</span>
+<div id="postcard">
+    <div id="divider"></div>
+    <div id="to">To Chom</div>
 </div>
 
 <div id="paper">
-    <div id="text"></div>
 
-    <div class="center">
-        <img id="gift" src="voucher.jpg">
-    </div>
+<div id="text"></div>
+
+<div class="center">
+    <img src="voucher.jpg" id="gift">
+</div>
+
 </div>
 
 <script>
 
-const message = `Thân gửi: Hoàng thượng
+const message = `❀
+
+Thân gửi: Hoàng thượng
 
 Hoàng thượng ơi,
 
 Nhận thấy Hoàng thượng làm việc chăm chỉ và bị em bào quá chừng,
 em xin kính cẩn nghiêng mình dâng lên Hoàng thượng món quà nhỏ của em.
 
-Mong Hoàng thượng nhận món quà này với một nụ cười thật tươi nhé! ☺️
+Mong Hoàng thượng nhận món quà này
+với một nụ cười thật tươi nhé! ☺️
 
 Và hãy nhớ chăm chỉ làm việc hơn...
 
-để dẫn em đi ăn nhé! 😜
+để còn dẫn em đi ăn nhé! 😜
 
+༄
 
 Credit:
 
 "Đổi một lần uống nước bằng một lần ăn vú nướng đấy nhé!
+
 Deal xịn đấy!"
 
+🌷
 
-Ký tên:
+Ký tên,
 
-Cô gái tẻn nhất anh từng gặp 🐾`;
+Cô gái tẻn nhất anh từng gặp
 
-document.getElementById("envelope").onclick = function(){
+❀`;
 
-    document.getElementById("envelope").style.display = "none";
+document.getElementById("postcard").onclick = function(){
+
+    document.getElementById("postcard").style.display = "none";
     document.getElementById("paper").style.display = "block";
 
     let i = 0;
-    const txt = document.getElementById("text");
 
     function typing(){
+
         if(i < message.length){
-            txt.innerHTML += message.charAt(i);
+
+            document.getElementById("text").innerHTML += message.charAt(i);
+
             i++;
+
             setTimeout(typing,35);
+
         }else{
+
             document.getElementById("gift").style.display = "block";
+
         }
     }
 
