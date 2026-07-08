@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>To Chom</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
@@ -21,28 +22,28 @@ body{
     justify-content:center;
     align-items:center;
     background:
-    radial-gradient(circle at top,#b79a7c,#7a6553);
-    font-family:'Cormorant Garamond',serif;
+    radial-gradient(circle at top,#a48669,#6f5948);
     overflow:auto;
 }
 
-/* BƯU THIẾP */
+/* ===== PHONG THƯ ===== */
 
 #postcard{
-    width:720px;
-    height:450px;
+    width:760px;
+    height:470px;
     background:
     linear-gradient(rgba(255,255,255,.08),
     rgba(255,255,255,.08)),
     repeating-linear-gradient(
-    45deg,
-    #e5d6bf,
-    #e5d6bf 4px,
-    #e0d0b8 4px,
-    #e0d0b8 8px);
-    border-radius:8px;
-    box-shadow:0 25px 60px rgba(0,0,0,.35);
+      45deg,
+      #eadfcf,
+      #eadfcf 6px,
+      #e3d6c2 6px,
+      #e3d6c2 12px
+    );
     position:relative;
+    box-shadow:0 30px 70px rgba(0,0,0,.35);
+    border-radius:8px;
     cursor:pointer;
     animation:sway 4s ease-in-out infinite;
 }
@@ -56,25 +57,12 @@ body{
 #postcard::before{
     content:"POSTCARD";
     position:absolute;
-    left:35px;
+    left:40px;
     top:35px;
     letter-spacing:8px;
-    font-size:35px;
-    color:#5f4c3d;
-}
-
-#postcard::after{
-    content:"";
-    position:absolute;
-    right:85px;
-    top:140px;
-    width:230px;
-    height:2px;
-    background:#7a6653;
-    box-shadow:
-      0 55px #7a6653,
-      0 110px #7a6653,
-      0 165px #7a6653;
+    color:#5b4b3d;
+    font-size:34px;
+    font-family:'Cormorant Garamond',serif;
 }
 
 #divider{
@@ -82,63 +70,87 @@ body{
     left:50%;
     top:70px;
     width:2px;
-    height:300px;
-    background:#7a6653;
+    height:320px;
+    background:#7d6b58;
+}
+
+#address{
+    position:absolute;
+    right:90px;
+    top:140px;
+    width:240px;
+}
+
+.line{
+    height:2px;
+    background:#7d6b58;
+    margin-bottom:45px;
 }
 
 #to{
     position:absolute;
-    right:120px;
-    top:170px;
-    font-size:50px;
-    font-style:italic;
-    color:#4d3c2d;
-    font-family:'Dancing Script',cursive;
+    right:140px;
+    top:180px;
+    font-family:'Great Vibes',cursive;
+    font-size:70px;
+    color:#503d2f;
 }
 
-/* GIẤY THƯ */
+/* ===== GIẤY THƯ ===== */
 
 #paper{
     display:none;
     width:900px;
     max-width:95%;
-    min-height:900px;
+    min-height:950px;
     background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,0) 45px,
-      rgba(120,100,80,.15) 46px
-    ),
-    linear-gradient(#f5efdf,#eee3ce);
+      linear-gradient(
+      rgba(255,255,255,.15),
+      rgba(255,255,255,.15)),
+      #f5f0e7;
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+    border-radius:6px;
     padding:90px;
-    box-shadow:0 25px 60px rgba(0,0,0,.35);
-    border-radius:8px;
-    color:#4d3d30;
+    position:relative;
 }
+
+#paper::before{
+    content:"🌷";
+    position:absolute;
+    top:35px;
+    right:45px;
+    font-size:35px;
+    opacity:.45;
+}
+
+#paper::after{
+    content:"";
+    position:absolute;
+    inset:15px;
+    border:1px solid rgba(140,120,100,.25);
+    pointer-events:none;
+}
+
+/* ===== CHỮ ===== */
 
 #text{
     white-space:pre-line;
+    font-family:'Great Vibes',cursive;
+    color:#4d3b2f;
     font-size:34px;
-    line-height:46px;
-    font-style:italic;
-    font-family:'Cormorant Garamond',serif;
+    line-height:2;
 }
 
 #gift{
     display:none;
-    width:330px;
+    width:340px;
     margin-top:60px;
-    border-radius:15px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .center{
     text-align:center;
-}
-
-.tulip{
-    color:#8a6f5a;
-    font-size:38px;
 }
 
 </style>
@@ -147,8 +159,17 @@ body{
 <body>
 
 <div id="postcard">
+
     <div id="divider"></div>
+
+    <div id="address">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
     <div id="to">To Chom</div>
+
 </div>
 
 <div id="paper">
@@ -163,9 +184,7 @@ body{
 
 <script>
 
-const message = `❀
-
-Thân gửi: Hoàng thượng
+const message = `❀ Thân gửi: Hoàng thượng
 
 Hoàng thượng ơi,
 
@@ -179,21 +198,18 @@ Và hãy nhớ chăm chỉ làm việc hơn...
 
 để còn dẫn em đi ăn nhé! 😜
 
-༄
 
 Credit:
 
-"Đổi một lần uống nước bằng một lần ăn vú nướng đấy nhé!
+"Đổi một lần uống nước
+bằng một lần ăn vú nướng đấy nhé!
 
 Deal xịn đấy!"
 
-🌷
 
 Ký tên,
 
-Cô gái tẻn nhất anh từng gặp
-
-❀`;
+Cô gái tẻn nhất anh từng gặp 🐾`;
 
 document.getElementById("postcard").onclick = function(){
 
@@ -201,16 +217,16 @@ document.getElementById("postcard").onclick = function(){
     document.getElementById("paper").style.display = "block";
 
     let i = 0;
+    const txt = document.getElementById("text");
 
     function typing(){
 
         if(i < message.length){
 
-            document.getElementById("text").innerHTML += message.charAt(i);
-
+            txt.innerHTML += message.charAt(i);
             i++;
 
-            setTimeout(typing,35);
+            setTimeout(typing,40);
 
         }else{
 
@@ -220,7 +236,7 @@ document.getElementById("postcard").onclick = function(){
     }
 
     typing();
-}
+};
 
 </script>
 
