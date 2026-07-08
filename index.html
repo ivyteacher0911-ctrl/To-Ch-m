@@ -3,56 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Chom</title>
 
-<title>💌 Một lá thư dành cho Hoàng thượng</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 
 body{
     margin:0;
-    background:linear-gradient(135deg,#ffe6f0,#fff7e6);
-    font-family:Arial,sans-serif;
+    min-height:100vh;
+    background:#8c7158;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    font-family:'Cormorant Garamond', serif;
 }
 
-.card{
-    width:750px;
-    max-width:90%;
-    background:white;
-    border-radius:20px;
-    padding:35px;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
-    text-align:left;
-}
+/* Phong thư */
 
-button{
-    padding:15px 30px;
-    border:none;
-    background:#ff6b9a;
-    color:white;
-    border-radius:12px;
-    font-size:18px;
+#envelope{
+    width:420px;
+    height:260px;
+    background:#b48a60;
+    border-radius:8px;
+    position:relative;
     cursor:pointer;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff8f0;
+    font-size:42px;
+    letter-spacing:3px;
+    transition:0.5s;
 }
 
-button:hover{
-    background:#ff4d88;
+#envelope:hover{
+    transform:translateY(-5px);
+}
+
+#envelope:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:210px solid transparent;
+    border-right:210px solid transparent;
+    border-top:130px solid #c89a69;
+}
+
+#envelope span{
+    position:relative;
+    z-index:2;
+}
+
+/* Giấy thư */
+
+#paper{
+    display:none;
+    width:850px;
+    max-width:90%;
+    min-height:650px;
+    background:
+      repeating-linear-gradient(
+        white 0px,
+        white 39px,
+        #e8e1d7 40px
+      );
+    background-color:#faf7f2;
+    padding:70px;
+    box-sizing:border-box;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    border-radius:8px;
 }
 
 #text{
     white-space:pre-line;
-    font-size:20px;
-    line-height:1.9;
-    color:#444;
+    font-size:34px;
+    line-height:40px;
+    color:#4e4033;
+    font-family:'Cormorant Garamond', serif;
 }
 
-img{
+#gift{
     display:none;
     width:320px;
-    margin:30px auto 0;
+    margin-top:50px;
     border-radius:15px;
 }
 
@@ -61,98 +97,67 @@ img{
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="card">
-
-<div id="start" class="center">
-
-<h1>💌</h1>
-
-<h2>Một lá thư đang chờ Hoàng thượng...</h2>
-
-<p>Nhấn nút bên dưới để mở thư.</p>
-
-<button onclick="startLetter()">MỞ THƯ</button>
-
+<div id="envelope">
+    <span>To Chom</span>
 </div>
 
-<div id="letter" style="display:none;">
+<div id="paper">
+    <div id="text"></div>
 
-<div id="text"></div>
-
-<div class="center">
-<img id="gift" src="voucher.jpg">
-</div>
-
-</div>
-
+    <div class="center">
+        <img id="gift" src="voucher.jpg">
+    </div>
 </div>
 
 <script>
 
-const message = `👑 Thân gửi: Hoàng thượng
+const message = `Thân gửi: Hoàng thượng
 
 Hoàng thượng ơi,
 
-Nhận thấy Hoàng thượng làm việc chăm chỉ và bị em bào quá chừng...
-
-Nên em xin kính cẩn nghiêng mình dâng lên Hoàng thượng một món quà nhỏ. 🎁
+Nhận thấy Hoàng thượng làm việc chăm chỉ và bị em bào quá chừng,
+em xin kính cẩn nghiêng mình dâng lên Hoàng thượng món quà nhỏ của em.
 
 Mong Hoàng thượng nhận món quà này với một nụ cười thật tươi nhé! ☺️
 
 Và hãy nhớ chăm chỉ làm việc hơn...
 
-Để còn dẫn em đi ăn nhé! 😜
+để dẫn em đi ăn nhé! 😜
 
-━━━━━━━━━━━━
 
-📜 Credit
+Credit:
 
-Đổi một lần uống nước...
+"Đổi một lần uống nước bằng một lần ăn vú nướng đấy nhé!
+Deal xịn đấy!"
 
-Bằng một lần ăn vú nướng đấy nhé!
 
-Deal xịn đấy! 🤝😂
+Ký tên:
 
-━━━━━━━━━━━━
+Cô gái tẻn nhất anh từng gặp 🐾`;
 
-Ký tên,
+document.getElementById("envelope").onclick = function(){
 
-"Cô gái tẻn nhất anh từng gặp"
+    document.getElementById("envelope").style.display = "none";
+    document.getElementById("paper").style.display = "block";
 
-🐾`;
+    let i = 0;
+    const txt = document.getElementById("text");
 
-function startLetter(){
+    function typing(){
+        if(i < message.length){
+            txt.innerHTML += message.charAt(i);
+            i++;
+            setTimeout(typing,35);
+        }else{
+            document.getElementById("gift").style.display = "block";
+        }
+    }
 
-document.getElementById("start").style.display="none";
-document.getElementById("letter").style.display="block";
-
-let i=0;
-
-function typing(){
-
-if(i<message.length){
-
-document.getElementById("text").innerHTML+=message.charAt(i);
-
-i++;
-
-setTimeout(typing,40);
-
-}else{
-
-document.getElementById("gift").style.display="block";
-
-}
-
-}
-
-typing();
-
+    typing();
 }
 
 </script>
