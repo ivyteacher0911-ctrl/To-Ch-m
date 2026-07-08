@@ -1,39 +1,330 @@
-#paper{
-    display:none;
-    width:900px;
-    max-width:95%;
-    min-height:950px;
-    background:
-      repeating-linear-gradient(
-        to bottom,
-        #f7f2e9 0px,
-        #f7f2e9 42px,
-        rgba(120,100,80,.18) 43px
-      );
-    box-shadow:0 30px 80px rgba(0,0,0,.35);
-    border-radius:8px;
-    padding:90px 90px 120px;
-    position:relative;
-    overflow:hidden;
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Hoàng Thượng</title>
+    <!-- Chèn font chữ viết thư tay cổ điển của Ý -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display:ital,wght@1,400;1,600&family=Special+Elite&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #1a1512;
+            --envelope-color: #614e3f;
+            --envelope-flap: #4a3b2f;
+            --paper-color: #fcfbfa;
+            --text-color: #2b221a;
+            --vintage-shadow: rgba(0, 0, 0, 0.4);
+        }
 
-/* viền cổ điển */
-#paper::before{
-    content:"❦";
-    position:absolute;
-    top:25px;
-    left:35px;
-    font-size:32px;
-    color:#8a735d;
-    opacity:.45;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-#paper::after{
-    content:"❦";
-    position:absolute;
-    bottom:25px;
-    right:35px;
-    font-size:32px;
-    color:#8a735d;
-    opacity:.45;
-}
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle, #2c221a 0%, #0f0b09 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Hiệu ứng lắc nhẹ khi bấm vào */
+        @keyframes shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-8px, 5px) rotate(-2deg); }
+            40% { transform: translate(6px, -3px) rotate(3deg); }
+            60% { transform: translate(-5px, 2px) rotate(-1deg); }
+            80% { transform: translate(4px, -1px) rotate(1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .shake-animation {
+            animation: shake 0.6s ease-in-out;
+        }
+
+        /* Khung chứa bao thư */
+        .envelope-wrapper {
+            position: relative;
+            width: 480px;
+            height: 320px;
+            background-color: var(--envelope-color);
+            border-radius: 4px;
+            box-shadow: 0 15px 35px var(--vintage-shadow);
+            cursor: pointer;
+            transition: transform 0.4s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mặt trước bao thư cổ điển */
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #524134;
+            border-radius: 4px;
+            z-index: 10;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(97,78,63,1) 0%, rgba(74,59,47,1) 100%);
+        }
+
+        /* Dấu mộc sáp hoặc nhãn To: Chom */
+        .receiver-tag {
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            font-family: 'Special Elite', monospace;
+            color: #d1bfa7;
+            font-size: 20px;
+            border-bottom: 1px dashed #d1bfa7;
+            padding-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        /* Biểu tượng con tem cổ điển góc phải */
+        .vintage-stamp {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 50px;
+            height: 60px;
+            border: 2px dashed #9c836d;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Special Elite', monospace;
+            font-size: 10px;
+            color: #9c836d;
+            transform: rotate(5deg);
+        }
+
+        /* Bức thư bên trong */
+        .letter-paper {
+            position: absolute;
+            width: 94%;
+            height: 94%;
+            background-color: var(--paper-color);
+            /* Tạo ô kẻ ngang màu trắng/xám nhẹ mờ tự nhiên */
+            background-image: linear-gradient(#e1dcd6 1px, transparent 1px);
+            background-size: 100% 28px;
+            padding: 35px 40px;
+            border-radius: 2px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 5;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: scale(0.95);
+            opacity: 0;
+            overflow-y: auto;
+            line-height: 28px; /* Căn chỉnh hoàn hảo theo ô kẻ dọc */
+        }
+
+        /* Trạng thái khi thư mở */
+        .envelope-wrapper.open {
+            background: none;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        .envelope-wrapper.open .envelope-front {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-100px) rotateX(90deg);
+            transition: all 0.6s ease;
+        }
+
+        .envelope-wrapper.open .letter-paper {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            width: 550px;
+            height: 700px;
+            max-height: 90vh;
+            z-index: 20;
+        }
+
+        /* Nội dung thư dạng viết tình cổ Ý in nghiêng */
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--text-color);
+            font-size: 16.5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: justify;
+        }
+
+        /* Hiệu ứng con trỏ nhấp nháy khi chữ đang chạy */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: var(--text-color);
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Vẽ hoa Tulip nghệ thuật dạng Sketch/Scarf bằng CSS tinh tế */
+        .tulip-container {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            opacity: 0;
+            transition: opacity 1.5s ease 1s;
+        }
+
+        .envelope-wrapper.open .tulip-container {
+            opacity: 0.65;
+        }
+
+        .tulip-sketch {
+            position: relative;
+            width: 40px;
+            height: 120px;
+        }
+
+        .tulip-flower {
+            position: absolute;
+            width: 24px;
+            height: 30px;
+            background-color: #8c2d19;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            left: 8px;
+            top: 5px;
+        }
+
+        .tulip-flower::before, .tulip-flower::after {
+            content: '';
+            position: absolute;
+            background-color: #a63a24;
+            width: 16px;
+            height: 28px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        .tulip-flower::before {
+            left: -6px;
+            transform: rotate(-15deg);
+        }
+
+        .tulip-flower::after {
+            right: -6px;
+            transform: rotate(15deg);
+        }
+
+        .tulip-stem {
+            position: absolute;
+            width: 2px;
+            height: 75px;
+            background-color: #4a5f41;
+            left: 19px;
+            top: 34px;
+        }
+
+        .tulip-leaf {
+            position: absolute;
+            width: 12px;
+            height: 40px;
+            background-color: #5c7452;
+            border-radius: 0 100% 0 100%;
+            left: 9px;
+            top: 50px;
+            transform: rotate(-30deg);
+        }
+
+        /* Thanh cuộn hoài cổ cho thư dài */
+        .letter-paper::-webkit-scrollbar {
+            width: 4px;
+        }
+        .letter-paper::-webkit-scrollbar-thumb {
+            background: #c2b6a8;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+        <!-- Mặt trước bao thư -->
+        <div class="envelope-front">
+            <div class="vintage-stamp">STAMP</div>
+            <div class="receiver-tag">To: Chom</div>
+        </div>
+
+        <!-- Bức thư ẩn bên trong -->
+        <div class="letter-paper" id="paper" onclick="event.stopPropagation();">
+            <!-- Vẽ hoa tulip nghệ thuật dạng sketch -->
+            <div class="tulip-container">
+                <div class="tulip-sketch">
+                    <div class="tulip-flower"></div>
+                    <div class="tulip-stem"></div>
+                    <div class="tulip-leaf"></div>
+                </div>
+            </div>
+            
+            <!-- Vùng chữ chạy tự động -->
+            <div class="letter-content" id="typewriter"></div><span class="cursor" id="letter-cursor"></span>
+        </div>
+    </div>
+
+    <script>
+        // Nội dung thư gốc, giữ nguyên tuyệt đối không sai một ký tự theo yêu cầu
+        const letterText = `Thân gửi: Hoàng thượng\n\nHoàng thượng ơi, nhận thấy Hoàng thượng làm việc chăm chỉ và bị em bào quá chừng, em xin kính cẩn nghiêng người dâng lên Hoàng thượng món quà nhỏ của em. Mong Hoàng thượng nhận món quà này với một nụ cười thật tươi nhé! ☺️\n\nVà hãy nhớ chăm chỉ làm việc hơn... để dẫn em đi ăn nhé! 😜)"\n\nCredit: "Đổi một lần uống nước bằng một lần ăn vú nướng đấy nhé! Deal xịn đấy!"\n\nKí tên: Cô gái tẻn nhất anh từng  (kí tên đóng dấu 🐾)`;
+
+        let isOpened = false;
+
+        function openEnvelope() {
+            if (isOpened) return;
+            isOpened = true;
+
+            const envelope = document.getElementById('envelope');
+            
+            // Bước 1: Tạo độ lắc nhẹ tinh tế
+            envelope.classList.add('shake-animation');
+
+            // Bước 2: Chờ lắc xong (600ms) rồi tiến hành mở và chạy chữ
+            setTimeout(() => {
+                envelope.classList.remove('shake-animation');
+                envelope.classList.add('open');
+                
+                // Khởi động hiệu ứng chạy chữ sau khi giấy mở hẳn
+                setTimeout(() => {
+                    startTypewriter();
+                }, 800);
+            }, 600);
+        }
+
+        function startTypewriter() {
+            let i = 0;
+            const speed = 45; // Tốc độ chạy chữ cổ điển, mượt mà vừa phải
+            const target = document.getElementById('typewriter');
+            const cursor = document.getElementById('letter-cursor');
+
+            function type() {
+                if (i < letterText.length) {
+                    target.textContent += letterText.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Chạy xong thì ẩn con trỏ nhấp nháy đi cho đẹp
+                    cursor.style.display = 'none';
+                }
+            }
+            type();
+        }
+    </script>
+</body>
+</html>
