@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gửi Hoàng Thượng</title>
+    <!-- Chèn font chữ viết thư tay cổ điển của Ý -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display:ital,wght@1,400;1,600&family=Special+Elite&display=swap" rel="stylesheet">
@@ -114,11 +115,11 @@
             width: 94%;
             height: 94%;
             background-color: var(--paper-color);
-            /* Tạo ô kẻ ngang mượt mà, khoảng cách dòng cố định 32px */
+            /* Dòng kẻ rộng 40px để khớp với font chữ viết tay Ý */
             background-image: linear-gradient(#e1dcd6 1px, transparent 1px);
-            background-size: 100% 32px;
-            /* Căn lề trên 22px để chữ hàng đầu tiên rơi chuẩn vào dòng kẻ */
-            padding: 22px 40px 35px 40px;
+            background-size: 100% 40px;
+            /* Căn lề trên chuẩn xác để chữ bám đúng dòng đầu tiên */
+            padding: 31px 45px 40px 45px;
             border-radius: 2px;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 4px 10px rgba(0,0,0,0.1);
             z-index: 5;
@@ -151,14 +152,13 @@
             z-index: 20;
         }
 
-        /* Nội dung thư dạng viết tình cổ Ý in nghiêng - Đã căn chỉnh thẳng hàng dòng kẻ */
+        /* Nội dung thư dùng font Italianno cổ điển - Cam kết thẳng hàng tuyệt đối */
         .letter-content {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+            font-family: 'Italianno', cursive;
             font-weight: 400;
             color: var(--text-color);
-            font-size: 17px; /* Cỡ chữ cổ điển, rõ nét */
-            line-height: 32px; /* Trùng khớp hoàn toàn với background-size của dòng kẻ */
+            font-size: 31px; /* Tăng kích thước để font chữ viết tay rõ ràng, dễ đọc */
+            line-height: 40px; /* Trùng khớp hoàn toàn với khoảng cách dòng kẻ */
             white-space: pre-wrap;
             word-wrap: break-word;
             text-align: justify;
@@ -168,9 +168,9 @@
         .cursor {
             display: inline-block;
             width: 2px;
-            height: 18px;
+            height: 24px;
             background-color: var(--text-color);
-            margin-left: 2px;
+            margin-left: 1px;
             vertical-align: middle;
             animation: blink 0.8s infinite;
         }
@@ -183,7 +183,7 @@
         .tulip-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             opacity: 0;
             transition: opacity 1.5s ease 1s;
         }
@@ -260,12 +260,15 @@
 <body>
 
     <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+        <!-- Mặt trước bao thư -->
         <div class="envelope-front">
             <div class="vintage-stamp">STAMP</div>
             <div class="receiver-tag">To: Chom</div>
         </div>
 
+        <!-- Bức thư ẩn bên trong -->
         <div class="letter-paper" id="paper" onclick="event.stopPropagation();">
+            <!-- Vẽ hoa tulip nghệ thuật dạng sketch -->
             <div class="tulip-container">
                 <div class="tulip-sketch">
                     <div class="tulip-flower"></div>
@@ -274,6 +277,7 @@
                 </div>
             </div>
             
+            <!-- Vùng chữ chạy tự động -->
             <div class="letter-content" id="typewriter"></div><span class="cursor" id="letter-cursor"></span>
         </div>
     </div>
