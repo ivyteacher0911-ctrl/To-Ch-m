@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💌 Một lá thư dành cho Hoàng thượng</title>
+
+<style>
+
+body{
+    margin:0;
+    background:linear-gradient(135deg,#ffe6f0,#fff7e6);
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    width:750px;
+    max-width:90%;
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    text-align:left;
+}
+
+button{
+    padding:15px 30px;
+    border:none;
+    background:#ff6b9a;
+    color:white;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ff4d88;
+}
+
+#text{
+    white-space:pre-line;
+    font-size:20px;
+    line-height:1.9;
+    color:#444;
+}
+
+img{
+    display:none;
+    width:320px;
+    margin:30px auto 0;
+    border-radius:15px;
+}
+
+.center{
+    text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div id="start" class="center">
+
+<h1>💌</h1>
+
+<h2>Một lá thư đang chờ Hoàng thượng...</h2>
+
+<p>Nhấn nút bên dưới để mở thư.</p>
+
+<button onclick="startLetter()">MỞ THƯ</button>
+
+</div>
+
+<div id="letter" style="display:none;">
+
+<div id="text"></div>
+
+<div class="center">
+<img id="gift" src="voucher.jpg">
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const message = `👑 Thân gửi: Hoàng thượng
+
+Hoàng thượng ơi,
+
+Nhận thấy Hoàng thượng làm việc chăm chỉ và bị em bào quá chừng...
+
+Nên em xin kính cẩn nghiêng mình dâng lên Hoàng thượng một món quà nhỏ. 🎁
+
+Mong Hoàng thượng nhận món quà này với một nụ cười thật tươi nhé! ☺️
+
+Và hãy nhớ chăm chỉ làm việc hơn...
+
+Để còn dẫn em đi ăn nhé! 😜
+
+━━━━━━━━━━━━
+
+📜 Credit
+
+Đổi một lần uống nước...
+
+Bằng một lần ăn vú nướng đấy nhé!
+
+Deal xịn đấy! 🤝😂
+
+━━━━━━━━━━━━
+
+Ký tên,
+
+"Cô gái tẻn nhất anh từng gặp"
+
+🐾`;
+
+function startLetter(){
+
+document.getElementById("start").style.display="none";
+document.getElementById("letter").style.display="block";
+
+let i=0;
+
+function typing(){
+
+if(i<message.length){
+
+document.getElementById("text").innerHTML+=message.charAt(i);
+
+i++;
+
+setTimeout(typing,40);
+
+}else{
+
+document.getElementById("gift").style.display="block";
+
+}
+
+}
+
+typing();
+
+}
+
+</script>
+
+</body>
+</html>
